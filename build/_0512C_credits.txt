@@ -1,0 +1,2 @@
+Credits:
+joexyz - entity search code
