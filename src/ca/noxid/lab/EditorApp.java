@@ -44,8 +44,8 @@ public class EditorApp extends JFrame implements ActionListener {
 	public static boolean blazed = false;
 
 	// about dialog
-	private static final String VER_NUM = "0.5.1.2C"; //$NON-NLS-1$
-	private static final String TITLE_STR = "Woosters Lab" + VER_NUM;
+	private static final String VER_NUM = " v0.5.2.0"; //$NON-NLS-1$
+	private static final String TITLE_STR = "Autumnal Lab" + VER_NUM;
 	private static final String ABOUT_STR = Messages.getString("EditorApp.1") + VER_NUM + "\n" + //$NON-NLS-1$ //$NON-NLS-2$
 			"By Noxid, Autumn, & Open Source Contributors - 8/1/2022\n" + //$NON-NLS-1$
 			Messages.getString("EditorApp.4") + //$NON-NLS-1$

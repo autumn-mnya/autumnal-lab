@@ -1222,7 +1222,7 @@ public class GameInfo {
 	
 	private void copyMapFiles(Mapdata src, Mapdata dest) {
 		//pxm, pxe, tsc
-		String[] extArray = {".pxm", ".pxe", ".tsc"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		String[] extArray = {".pxm", ".pxe", ".tsc", ".cpxe",}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		File srcf, destf;
 		
 		try {
@@ -1606,6 +1606,7 @@ public class GameInfo {
 			foundFiles.add(new File(dataDir + "/Stage/" + m.getTileset() + ".pxa"));
 			foundFiles.add(new File(dataDir + "/Stage/" + m.getFile() + ".pxm"));
 			foundFiles.add(new File(dataDir + "/Stage/" + m.getFile() + ".pxe"));
+			foundFiles.add(new File(dataDir + "/Stage/" + m.getFile() + ".cpxe"));
 			foundFiles.add(new File(dataDir + "/Stage/" + m.getFile() + ".tsc"));
 		}
 		

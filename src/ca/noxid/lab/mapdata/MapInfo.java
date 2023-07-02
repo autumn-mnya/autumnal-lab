@@ -88,6 +88,14 @@ public class MapInfo implements Changeable {
 		return pxeList.iterator();
 	}
 
+	// Autumn Custom PXE //
+
+	private LinkedList<PxeEntry> cpxeList;
+
+	public Iterator<PxeEntry> getCustomPxeIterator() {
+		return cpxeList.iterator();
+	}
+
 	// UNDO/redo
 	private UndoManager undoMan;
 
@@ -495,6 +503,48 @@ public class MapInfo implements Changeable {
 		} catch (IOException e) {
 			System.err.println(Messages.getString("MapInfo.16") + directory + "/Stage/" + d.getFile()); //$NON-NLS-1$ //$NON-NLS-2$
 		}
+
+		// Load Autumn Custom PXE (.cpxe)
+
+		cpxeList = new LinkedList<>();
+		try {
+			File currentFile = new File(directory + "/Stage/" + d.getFile() + ".cpxe"); //$NON-NLS-1$ //$NON-NLS-2$
+			currentFile = ResourceManager.checkBase(currentFile);
+			FileInputStream inStream = new FileInputStream(currentFile);
+			FileChannel inChan = inStream.getChannel();
+			ByteBuffer hBuf = ByteBuffer.allocate(6);
+			hBuf.order(ByteOrder.LITTLE_ENDIAN);
+
+			inChan.read(hBuf);
+			hBuf.flip();
+			int nEnt;
+			ByteBuffer eBuf;
+			switch (hBuf.get(3)) {
+			case 0: // cpxe
+				nEnt = hBuf.getShort(4);
+				eBuf = ByteBuffer.allocate(nEnt * 2 + 2);
+				eBuf.order(ByteOrder.LITTLE_ENDIAN);
+				inChan.read(eBuf);
+				eBuf.flip();
+				eBuf.getShort(); // discard this value
+				for (int i = 0; i < nEnt; i++) {
+					int customValue01 = eBuf.getShort();
+					PxeEntry p = new PxeEntry(customValue01);
+					p.filePos = i;
+					cpxeList.add(p);
+				}
+				break;
+			default:
+				System.err.println(Messages.getString("MapInfo.CustomPXE.1")); //$NON-NLS-1$
+				inChan.close();
+				inStream.close();
+				throw new IOException();
+			}
+			inChan.close();
+			inStream.close();
+		} catch (IOException e) {
+			System.err.println(Messages.getString("MapInfo.16") + directory + "/Stage/" + d.getFile()); //$NON-NLS-1$ //$NON-NLS-2$
+		}
 	}
 
 	// yes.
@@ -542,6 +592,21 @@ public class MapInfo implements Changeable {
 		public int getType() {
 			return entityType;
 		}
+
+		// AUTUMN CUSTOM VALUES AND OTHER SUCH THINGS BELOW //
+
+		private short CustomValue01;
+
+		public int getCustomValue01() {
+			return CustomValue01;
+		}
+
+		public void setCustomValue01(int num) {
+			CustomValue01 = (short) num;
+			markChanged();
+		}
+
+		// AUTUMN CUSTOM VALUES AND OTHER SUCH THINGS ABOVE //
 
 		// set method below
 		private short flags;
@@ -597,9 +662,18 @@ public class MapInfo implements Changeable {
 			}
 		}
 
+		PxeEntry(int pxeCustomValue01)
+		{
+			CustomValue01 = (short) pxeCustomValue01;
+		}
+
 		public PxeEntry clone() {
 			return new PxeEntry(this.xTile, this.yTile, this.flagID, this.eventNum, this.entityType, this.flags,
 					this.layer);
+		}
+
+		public PxeEntry cloneCustom() {
+			return new PxeEntry(this.CustomValue01);
 		}
 
 		public void draw(Graphics2D g2d, int flags) {
@@ -702,6 +776,15 @@ public class MapInfo implements Changeable {
 			retVal.putShort(flags);
 			// if (EditorApp.EDITOR_MODE >= 1)
 			// retVal.put(layer);
+			retVal.flip();
+			return retVal;
+		}
+
+		public ByteBuffer toCustomBuf() {
+			int size = 2;
+			ByteBuffer retVal = ByteBuffer.allocate(size);
+			retVal.order(ByteOrder.LITTLE_ENDIAN);
+			retVal.putShort(CustomValue01);
 			retVal.flip();
 			return retVal;
 		}
@@ -1040,10 +1123,12 @@ public class MapInfo implements Changeable {
 			pxmFile = new File(exeData.getDataDirectory() + "/Stage/" + d.getFile() + ".pxm"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		File pxeFile = new File(exeData.getDataDirectory() + "/Stage/" + d.getFile() + ".pxe"); //$NON-NLS-1$ //$NON-NLS-2$
+		File cpxeFile = new File(exeData.getDataDirectory() + "/Stage/" + d.getFile() + ".cpxe"); //$NON-NLS-1$ //$NON-NLS-2$
 		// we can just use our pxaFile field for this, since that's already corrected for CS+
 		//File pxaFile = new File(exeData.getDataDirectory() + "/Stage/" + d.getTileset() + ".pxa"); //$NON-NLS-1$ //$NON-NLS-2$
 		byte[] pxmTag = { 'P', 'X', 'M', 0x10 };
 		byte[] pxeTag = { 'P', 'X', 'E', 0 };
+		byte[] cpxeTag = { 'A', 'U', 'T', 0 };
 		ByteBuffer headerBuf;
 		ByteBuffer mapBuf;
 
@@ -1176,8 +1261,35 @@ public class MapInfo implements Changeable {
 			}
 			pxeChannel.close();
 			out.close();
+			
 		} catch (IOException e) {
 			StrTools.msgBox("Error saving .pxe file. (check read-only?)");
+			e.printStackTrace();
+		}
+
+		try {
+			// Save Autumn Custom PXE (.pxe)
+			// sort by order
+			Collections.sort(cpxeList);
+			FileOutputStream out = new FileOutputStream(cpxeFile);
+			FileChannel pxeChannel = out.getChannel();
+			headerBuf = ByteBuffer.wrap(cpxeTag);
+			pxeChannel.write(headerBuf);
+			ByteBuffer dumbBuf = ByteBuffer.allocate(4);
+			dumbBuf.order(ByteOrder.LITTLE_ENDIAN);
+			dumbBuf.putShort((short) cpxeList.size());
+			dumbBuf.putShort((short) 0);
+			dumbBuf.flip();
+			pxeChannel.write(dumbBuf);
+			Collections.sort(cpxeList);
+			for (PxeEntry nextEntry : cpxeList) {
+				pxeChannel.write(nextEntry.toCustomBuf());
+			}
+			pxeChannel.close();
+			out.close();
+			
+		} catch (IOException e) {
+			StrTools.msgBox("Error saving .cpxe file. (check read-only?)");
 			e.printStackTrace();
 		}
 
@@ -1315,6 +1427,7 @@ public class MapInfo implements Changeable {
 		public static final int EDIT_MODIFY = 3;
 
 		PxeEntry entry;
+		PxeEntry custom_entry;
 		int changeType;
 		Object params;
 
@@ -1373,14 +1486,19 @@ public class MapInfo implements Changeable {
 				break;
 			case EDIT_PLACE:
 				pxeList.remove(entry);
+				cpxeList.remove(custom_entry);
 				break;
 			case EDIT_MODIFY:
 				PxeEntry lastState = (PxeEntry) params;
+				PxeEntry customlastState = (PxeEntry) params;
 				pxeList.remove(entry);
 				pxeList.add(lastState);
+				cpxeList.remove(custom_entry);
+				cpxeList.add(customlastState);
 				break;
 			case EDIT_REMOVE:
 				pxeList.add(entry);
+				cpxeList.add(custom_entry);
 				break;
 			}
 		}
@@ -1395,14 +1513,19 @@ public class MapInfo implements Changeable {
 				break;
 			case EDIT_PLACE:
 				pxeList.add(entry);
+				cpxeList.add(custom_entry);
 				break;
 			case EDIT_MODIFY:
 				PxeEntry lastState = (PxeEntry) params;
+				PxeEntry customlastState = (PxeEntry) params;
 				pxeList.add(entry);
 				pxeList.remove(lastState);
+				cpxeList.add(custom_entry);
+				cpxeList.remove(customlastState);
 				break;
 			case EDIT_REMOVE:
 				pxeList.remove(entry);
+				cpxeList.remove(custom_entry);
 				break;
 			}
 		}
@@ -1467,6 +1590,7 @@ public class MapInfo implements Changeable {
 		}
 		addEdit(new MapEdit(0, 0, null, null, 0));// significant
 		pxeList.removeAll(selectionList);
+		cpxeList.removeAll(selectionList);
 		this.markChanged();
 	}
 
@@ -1489,8 +1613,14 @@ public class MapInfo implements Changeable {
 				max = e.getOrder();
 			}
 		}
+		for (PxeEntry e : cpxeList) {
+			if (max < e.getOrder()) {
+				max = e.getOrder();
+			}
+		}
 		ent.setOrder(max + 1);
 		pxeList.add(ent);
+		cpxeList.add(ent);
 		addEdit(new EntityEdit(EntityEdit.EDIT_PLACE, ent, null));
 		this.markChanged();
 		return ent;
@@ -1510,6 +1640,7 @@ public class MapInfo implements Changeable {
 
 	public void clearEntities() {
 		pxeList.clear();
+		cpxeList.clear();
 		markChanged();
 	}
 

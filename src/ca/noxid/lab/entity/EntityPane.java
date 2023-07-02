@@ -554,6 +554,7 @@ public class EntityPane extends MapPane implements ListSelectionListener, Clipbo
 		private FormattedUpdateTextField flagIDInput;
 		private FormattedUpdateTextField eventInput;
 		private FormattedUpdateTextField orderInput;
+		private FormattedUpdateTextField CustomValue01Input;
 		private JLabel selectCountLabel;
 		private JLabel flagLabel;
 		
@@ -585,6 +586,8 @@ public class EntityPane extends MapPane implements ListSelectionListener, Clipbo
 			c.gridy++;
 			this.add(new JLabel(Messages.getString("EntityPane.6")), c); //$NON-NLS-1$
 			c.gridy++;
+			this.add(new JLabel(Messages.getString("EntityPane.Custom.1")), c); //$NON-NLS-1$
+			c.gridy++;
 			this.add(new JLabel(Messages.getString("EntityPane.7")), c); //$NON-NLS-1$
 			c.gridy = 1;
 			c.gridx = 1;
@@ -603,6 +606,14 @@ public class EntityPane extends MapPane implements ListSelectionListener, Clipbo
 			orderInput.addActionListener(this);
 			this.add(orderInput, c);
 			c.gridy++;
+			// Custom Value Input(s)
+			CustomValue01Input = new FormattedUpdateTextField(lFormat);
+			CustomValue01Input.setColumns(4);
+			CustomValue01Input.addActionListener(this);
+			this.add(CustomValue01Input, c);
+			c.gridy++;
+			// Custom Value input(s) end
+
 			flagLabel = new JLabel("0000"); //$NON-NLS-1$
 			this.add(flagLabel, c);
 			
@@ -626,6 +637,8 @@ public class EntityPane extends MapPane implements ListSelectionListener, Clipbo
 				flagIDInput.setEnabled(state);
 				eventInput.setEnabled(state);
 				orderInput.setEnabled(state);
+				// Custom Value from Autumn
+				CustomValue01Input.setEnabled(state);
 				for (JCheckBox c : flagArray) {
 					c.setEnabled(state);
 				}
@@ -644,6 +657,7 @@ public class EntityPane extends MapPane implements ListSelectionListener, Clipbo
 				flagIDInput.setText(String.valueOf(p.getFlagID()));
 				eventInput.setText(String.valueOf(p.getEvent()));
 				orderInput.setText(String.valueOf(p.getOrder()));
+				CustomValue01Input.setText(String.valueOf(p.getCustomValue01()));
 				int flags = p.getFlags();
 				flagLabel.setText(String.format("0x%04X", flags)); //$NON-NLS-1$
 				int bit = 1;
@@ -662,6 +676,8 @@ public class EntityPane extends MapPane implements ListSelectionListener, Clipbo
 				orderInput.setEnabled(false);
 				String flagID = null;
 				String event = null;
+				// Custom Value(s) from Autumn
+				String CustomValue01text = null;
 				int[] flagsArray = new int[flagArray.length];
 				for (PxeEntry p : entityList) {
 					if (flagID == null) {
@@ -695,6 +711,8 @@ public class EntityPane extends MapPane implements ListSelectionListener, Clipbo
 						flagArray[i].setText(EntityData.flagNames[i] + "*" + flagsArray[i]); //$NON-NLS-1$
 					}
 				}
+				// Custom Value(s) from Autumn
+				CustomValue01Input.setText(CustomValue01text);
 			} //if size  > 1
 		}//listChanged();
 
@@ -730,6 +748,17 @@ public class EntityPane extends MapPane implements ListSelectionListener, Clipbo
 						orderInput.setText("0");
 					}
 					entityList.iterator().next().setOrder(order);
+				// Custom Value(s) from autumn
+				} else if (src == CustomValue01Input) {
+					int customvalue1 = 0;
+					try {
+						customvalue1 = Integer.parseInt(CustomValue01Input.getText());
+					} catch (NumberFormatException err) {
+						CustomValue01Input.setText("0");
+					}
+					for (PxeEntry e : entityList) {
+						e.setCustomValue01(customvalue1);
+					}
 				} else {
 					//check flags
 					for (int i = 0; i < flagArray.length; i++) {
