@@ -1,8 +1,21 @@
 #361 -> Booster Refill
-Refills the players Booster Fuel when touched.
+Refills the players Booster Fuel when touched. If Alt Direction is set, then it will set your fuel to 0.
+
+Custom Values avaiable:
+01 - How much fuel is given when touched (Default is 50 if set to 0)
+02 - How many frames until it respawns (Default is 50 if set to 0)
 
 #362 -> Lock-On Trigger
 Homes in towards the player in both X/Y directions.
+
+Custom Values avaiable:
+
+01 - How fast the trigger is. (Default is 1535 if set to 0)
+02 - The Top Left X coordinate of the RECT (Default is 0 if set to 0)
+03 - The Top Left Y coordinate of the RECT (Default is 0 if set to 0)
+04 - The Bottom Right X coordinate of the RECT (Default is 16 if set to 0)
+05 - The Bottom Right Y coordinate of the RECT (Default is 16 if set to 0)
+06 - The Surface the npc uses (Default is the one set in npc.tbl if its set to 0)
 
 #363 -> 2-Way Trigger
 Runs entity event X when going inside the trigger from 1 direction, and runs entity event X + 10 if coming from the other.
@@ -19,8 +32,19 @@ Forces the player to explode upon impact, no matter their HP or I-Frames.
 #367 -> Forced Booster (Horizontal)
 Forces the player to boost hozizontally even if they dont have a booster, with no means of stopping. By default it goes left, Alt Direction makes it go right.
 
+Custom Values available:
+01 - How much fuel the forced boost has (Default is 50 if set to 0)
+02 - How long until this forced boost respawns (Default is 50 if set to 0)
+
 #368 -> Forced Booster (Vertical)
 Forces the player to boost vertically even if they dont have a booster, with no means of stopping. By default it goes up, Alt Direction makes it go down.
 
+Custom Values available:
+01 - How much fuel the forced boost has (Default is 50 if set to 0)
+02 - How long until this forced boost respawns (Default is 50 if set to 0)
+
 #369 -> Flag Trigger
-Sets the entities assigned flag ID when passing through the trigger. When given the "Unused / Custom" checkbox, it unsets the flag ID instead.
+Sets the flags assigned to the custom values available. When given the "Unused / Custom" checkbox, it unsets the flag IDs instead.
+
+Custom Values available:
+01, 02, 03, 04, 05, 06. All of these set different flags.

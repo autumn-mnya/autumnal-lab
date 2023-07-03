@@ -708,6 +708,7 @@ public class MapInfo implements Changeable {
 		}
 
 		PxeEntry(int pxeX, int pxeY, int pxeFlagID, int pxeEvent, int pxeType, int pxeFlags, int pxeLayer, int pxeCustomValue01, int pxeCustomValue02, int pxeCustomValue03, int pxeCustomValue04, int pxeCustomValue05, int pxeCustomValue06 ) {
+			xTile = (short) pxeX;
 			yTile = (short) pxeY;
 			flagID = (short) pxeFlagID;
 			eventNum = (short) pxeEvent;

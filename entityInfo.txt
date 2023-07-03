@@ -374,3 +374,4 @@
 #367	Force	BoostH	Forced Booster (Horizontal)	0:0:0:0	Read Custom Entities txt file.	;
 #368	Force	BoostV	Forced Booster (Vertical)	0:0:0:0	Read Custom Entities txt file.	;
 #369	Flag	Trigger	Flag Trigger	0:0:0:0	Read Custom Entities txt file.	;
+#370	Enemy	CrtUpsD	Critter (hover, upside down)	0:384:32:416	Read Custom Entities txt file.	;
