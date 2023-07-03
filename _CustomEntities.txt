@@ -1,0 +1,26 @@
+#361 -> Booster Refill
+Refills the players Booster Fuel when touched.
+
+#362 -> Lock-On Trigger
+Homes in towards the player in both X/Y directions.
+
+#363 -> 2-Way Trigger
+Runs entity event X when going inside the trigger from 1 direction, and runs entity event X + 10 if coming from the other.
+
+#364 -> Player Matcher
+Matches the players position on spawn then deletes itself, unless it has alt direction, in which case it always matches the players position every frame it's active.
+
+#365 -> Backstep Trigger
+Forces the player to be bumped backwards in the opposite direction, an invisible barrier of sorts. Same as <MYB.
+
+#366 -> Kill Trigger
+Forces the player to explode upon impact, no matter their HP or I-Frames.
+
+#367 -> Forced Booster (Horizontal)
+Forces the player to boost hozizontally even if they dont have a booster, with no means of stopping. By default it goes left, Alt Direction makes it go right.
+
+#368 -> Forced Booster (Vertical)
+Forces the player to boost vertically even if they dont have a booster, with no means of stopping. By default it goes up, Alt Direction makes it go down.
+
+#369 -> Flag Trigger
+Sets the entities assigned flag ID when passing through the trigger. When given the "Unused / Custom" checkbox, it unsets the flag ID instead.

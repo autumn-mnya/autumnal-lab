@@ -365,3 +365,12 @@
 #358	Msry	wind	Misery (wind) 	416:20:444:64	Misery (wind) 	CE:Misery ;
 #359	Genrt	WDrop	Generator - Water drop 	144:32:148:36	Generator - Water drop 	CE:Misc ;
 #360	Thank	you!	'Thank you!' 	0:352:96:366	'Thank you!' 	CE:Misc ;
+#361	Boost	Refill	Booster Refill	0:0:0:0	Read Custom Entities txt file.	;
+#362	LockOn	Trigger	Lock-On Trigger	0:0:0:0	Read Custom Entities txt file.	;
+#363	2-Way	Trigger	2-Way Trigger	0:0:0:0	Read Custom Entities txt file.	;
+#364	Player	Match	Player Matcher	0:0:0:0	Read Custom Entities txt file.	;
+#365	Back	Trigger	Backstep Trigger	0:0:0:0	Read Custom Entities txt file.	;
+#366	Kill	Trigger	Kill Trigger	0:0:0:0	Read Custom Entities txt file.	;
+#367	Force	BoostH	Forced Booster (Horizontal)	0:0:0:0	Read Custom Entities txt file.	;
+#368	Force	BoostV	Forced Booster (Vertical)	0:0:0:0	Read Custom Entities txt file.	;
+#369	Flag	Trigger	Flag Trigger	0:0:0:0	Read Custom Entities txt file.	;

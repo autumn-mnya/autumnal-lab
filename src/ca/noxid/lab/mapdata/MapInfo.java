@@ -469,8 +469,8 @@ public class MapInfo implements Changeable {
 			inChan.read(eBuf); //read the entire file into the buffer
 			eBuf.flip();
 
-			// nEnt * (4 * AmountOfCustomEntries)
-			ByteBuffer myBuf = ByteBuffer.allocate(nEnt * 4 + 4);
+			// nEnt * (4 * AmountOfCustomEntries + 4)
+			ByteBuffer myBuf = ByteBuffer.allocate(nEnt * (4 * 6) + 4);
 
 			// Load Custom File into memory
 			if (customInChan != null)
@@ -481,6 +481,7 @@ public class MapInfo implements Changeable {
 				myBuf.getInt();
 			}
 
+			// Load autumn custom pxe
 			switch (pxeFileType)
 			{
 				case 0:
@@ -494,11 +495,21 @@ public class MapInfo implements Changeable {
 						int pxeFlags = eBuf.getShort() & 0xFFFF;
 						// Custom values ..
 						int cpxeValue1 = 0;
+						int cpxeValue2 = 0;
+						int cpxeValue3 = 0;
+						int cpxeValue4 = 0;
+						int cpxeValue5 = 0;
+						int cpxeValue6 = 0;
 						if (customInChan != null)
 						{
 							cpxeValue1 = myBuf.getInt();
+							cpxeValue2 = myBuf.getInt();
+							cpxeValue3 = myBuf.getInt();
+							cpxeValue4 = myBuf.getInt();
+							cpxeValue5 = myBuf.getInt();
+							cpxeValue6 = myBuf.getInt();
 						}
-						PxeEntry p = new PxeEntry(pxeX, pxeY, pxeFlagID, pxeEvent, pxeType, pxeFlags, 1, cpxeValue1); // (broken for obvious reasons atm)
+						PxeEntry p = new PxeEntry(pxeX, pxeY, pxeFlagID, pxeEvent, pxeType, pxeFlags, 1, cpxeValue1, cpxeValue2, cpxeValue3, cpxeValue4, cpxeValue5, cpxeValue6); // (broken for obvious reasons atm)
 						p.filePos = i;
 						pxeList.add(p);
 					}
@@ -603,6 +614,60 @@ public class MapInfo implements Changeable {
 			markChanged();
 		}
 
+		private int CustomValue02;
+
+		public int getCustomValue02() {
+			return CustomValue02;
+		}
+
+		public void setCustomValue02(int num) {
+			CustomValue02 = num;
+			markChanged();
+		}
+
+		private int CustomValue03;
+
+		public int getCustomValue03() {
+			return CustomValue03;
+		}
+
+		public void setCustomValue03(int num) {
+			CustomValue03 = num;
+			markChanged();
+		}
+
+		private int CustomValue04;
+
+		public int getCustomValue04() {
+			return CustomValue04;
+		}
+
+		public void setCustomValue04(int num) {
+			CustomValue04 = num;
+			markChanged();
+		}
+
+		private int CustomValue05;
+
+		public int getCustomValue05() {
+			return CustomValue05;
+		}
+
+		public void setCustomValue05(int num) {
+			CustomValue05 = num;
+			markChanged();
+		}
+
+		private int CustomValue06;
+
+		public int getCustomValue06() {
+			return CustomValue06;
+		}
+
+		public void setCustomValue06(int num) {
+			CustomValue06 = num;
+			markChanged();
+		}
 		// AUTUMN CUSTOM VALUES AND OTHER SUCH THINGS ABOVE //
 
 		// set method below
@@ -642,8 +707,7 @@ public class MapInfo implements Changeable {
 			return inf;
 		}
 
-		PxeEntry(int pxeX, int pxeY, int pxeFlagID, int pxeEvent, int pxeType, int pxeFlags, int pxeLayer, int pxeCustomValue01) {
-			xTile = (short) pxeX;
+		PxeEntry(int pxeX, int pxeY, int pxeFlagID, int pxeEvent, int pxeType, int pxeFlags, int pxeLayer, int pxeCustomValue01, int pxeCustomValue02, int pxeCustomValue03, int pxeCustomValue04, int pxeCustomValue05, int pxeCustomValue06 ) {
 			yTile = (short) pxeY;
 			flagID = (short) pxeFlagID;
 			eventNum = (short) pxeEvent;
@@ -652,6 +716,11 @@ public class MapInfo implements Changeable {
 			layer = (byte) pxeLayer;
 			// Custom Value(s) (???)
 			CustomValue01 = (short) pxeCustomValue01;
+			CustomValue02 = (short) pxeCustomValue02;
+			CustomValue03 = (short) pxeCustomValue03;
+			CustomValue04 = (short) pxeCustomValue04;
+			CustomValue05 = (short) pxeCustomValue05;
+			CustomValue06 = (short) pxeCustomValue06;
 			filePos = -1;
 
 			inf = exeData.getEntityInfo(entityType);
@@ -663,7 +732,7 @@ public class MapInfo implements Changeable {
 
 		public PxeEntry clone() {
 			return new PxeEntry(this.xTile, this.yTile, this.flagID, this.eventNum, this.entityType, this.flags,
-					this.layer, this.CustomValue01);
+					this.layer, this.CustomValue01, this.CustomValue02, this.CustomValue03, this.CustomValue04, this.CustomValue05, this.CustomValue06);
 		}
 
 		public void draw(Graphics2D g2d, int flags) {
@@ -770,11 +839,17 @@ public class MapInfo implements Changeable {
 			return retVal;
 		}
 
+		// Saving Autumn custom pxe (cpxe)
 		public ByteBuffer toCustomBuf() {
-			int size = 4;
+			int size = 4 * 6; // 4 * AmountOfEntries
 			ByteBuffer retVal = ByteBuffer.allocate(size);
 			retVal.order(ByteOrder.LITTLE_ENDIAN);
 			retVal.putInt(CustomValue01);
+			retVal.putInt(CustomValue02);
+			retVal.putInt(CustomValue03);
+			retVal.putInt(CustomValue04);
+			retVal.putInt(CustomValue05);
+			retVal.putInt(CustomValue06);
 			retVal.flip();
 			return retVal;
 		}
@@ -1573,7 +1648,7 @@ public class MapInfo implements Changeable {
 	 * @return the new entity created
 	 */
 	public PxeEntry addEntity(int x, int y, int id) {
-		PxeEntry ent = new PxeEntry(x, y, 0, 0, id, 0, 0, 0);
+		PxeEntry ent = new PxeEntry(x, y, 0, 0, id, 0, 0, 0, 0, 0, 0, 0, 0);
 		return addEntity(ent);
 	}
 
