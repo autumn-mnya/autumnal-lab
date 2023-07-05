@@ -47,9 +47,10 @@ public class EditorApp extends JFrame implements ActionListener {
 	private static final String VER_NUM = " v0.5.2.0"; //$NON-NLS-1$
 	private static final String TITLE_STR = "Autumnal Lab" + VER_NUM;
 	private static final String ABOUT_STR = Messages.getString("EditorApp.1") + VER_NUM + "\n" + //$NON-NLS-1$ //$NON-NLS-2$
-			"By Noxid, Autumn, & Open Source Contributors - 8/1/2022\n" + //$NON-NLS-1$
+			"By Autumn Hazel - 7/3/2023\n" + //$NON-NLS-1$
 			Messages.getString("EditorApp.4") + //$NON-NLS-1$
-			Messages.getString("EditorApp.5"); //$NON-NLS-1$
+			Messages.getString("EditorApp.5") + //$NON-NLS-1$
+			Messages.getString("EditorApp.6"); 
 
 	public static int EDITOR_MODE = 0;
 	public static int EDITOR_BITMAP_MODE = 0;

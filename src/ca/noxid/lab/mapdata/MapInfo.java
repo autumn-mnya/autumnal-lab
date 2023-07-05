@@ -758,6 +758,12 @@ public class MapInfo implements Changeable {
 					srcImg = iMan.getImg(tileset);
 				else if (tilesetNum == 0x10) // npc myChar
 					srcImg = iMan.getImg(exeData.getMyCharFile());
+				else if (tilesetNum == 0x19) //npc autumn objects
+					srcImg = iMan.getImg(exeData.getAutumnObjectsFile());
+				else if (tilesetNum == 0x26) //npc autumn items
+					srcImg = iMan.getImg(exeData.getAutumnItemsFile());
+				else if (tilesetNum == 0x27) //npc autumn characters
+					srcImg = iMan.getImg(exeData.getAutumnCharactersFile());
 				else
 					srcImg = null;
 

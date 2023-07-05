@@ -1,14 +1,16 @@
+Ask the Cave Story Modding Community discord if you're confused about anything here! I (@autumn_mnya) will try my best to help if asked.
+
 #361 -> Booster Refill
 Refills the players Booster Fuel when touched. If Alt Direction is set, then it will set your fuel to 0.
 
-Custom Values avaiable:
+Custom Values available:
 01 - How much fuel is given when touched (Default is 50 if set to 0)
 02 - How many frames until it respawns (Default is 50 if set to 0)
 
 #362 -> Lock-On Trigger
 Homes in towards the player in both X/Y directions.
 
-Custom Values avaiable:
+Custom Values available:
 
 01 - How fast the trigger is. (Default is 1535 if set to 0)
 02 - The Top Left X coordinate of the RECT (Default is 0 if set to 0)
@@ -48,3 +50,67 @@ Sets the flags assigned to the custom values available. When given the "Unused /
 
 Custom Values available:
 01, 02, 03, 04, 05, 06. All of these set different flags.
+
+#370 -> Purple Critter (Upside Down)
+Labyrinth Critter enemy that has reversed gravity.
+
+#371 -> Camera Target
+Focuses the camera on the entity within a set radius, and unfocuses the camera when leaving the radius. The radius is roughly 5 tiles out on both the X and Y axis.
+Using <ANP to set the entity to state 1 will delete the entity and set the cameras focus back to the player.
+
+Custom Values available:
+01 - Radius on the X axis in tiles to focus the camera.
+02 - Radius on the Y axis in tiles to focus the camera.
+
+#372 -> Transport Trigger
+Does the equivalent of a <KEY<MM0<FAOxxxx<TRA, except without any scripting. Note you will still need to run an event at the destination map.
+
+Custom Values available:
+01 - The map to transport to.
+02 - The event in the destination map to run.
+03 - The X coordinate to spawn at in the destination map.
+04 - The Y coordinate to spawn at in the destination map.
+05 - The direction in which the Fade should occur. Anything above 4 will result in no fade occuring.
+
+#373 -> Energy Capsule (Custom)
+Same as Entity #253 (EXP Capsule), except it uses Custom Value 01 for the amount of experience instead of the Flag ID.
+
+Custom Values available:
+01 - Amount of experience dropped (Default is 10 if set to 0)
+
+#374 through #377 -> Customiable Fan
+Same as Entities 96 - 99, except the speed given to the player is customizable.
+
+Custom Values available:
+01 - The speed given to the player. (Default is 136 when set to 0)
+
+#378 -> Spikes (Custom)
+Same as Entity #211 (Spikes), except it uses Custom Value 01 for the direction instead of the Event #.
+
+Custom Values available:
+01 - The direction the spikes face.
+
+#379 -> Rolling (Custom)
+Same as Entity #330 (Rolling), except it uses Custom Values for its speed.
+
+Custom Values available:
+01 - The acceleration speed of the rolling (Default is 64 if set to 0)
+02 - The max speed of the rolling (Default is 1024 if set to 0)
+
+#380 -> Acid Drop Generator (Custom)
+Same as Entity #245 (Acid Generator), except it uses Custom Value 01 for the wait time between drops.
+
+Custom Values available:
+01 - Wait time between drops (Default is 0)
+
+#381 through #428 - Custom Vanilla NPCs
+These are clones of the NPC code from the vanilla game, but all in 1 globally loaded spritesheet (NpcAutumnChar), and you can add more sprites infinitely to the file using Custom Value 01, similar to <MIM.
+
+Custom Values available:
+01 - Move the sprite down however many pixels neccessary for the sprite in question. See "_EntitySpriteSize.txt" for more info directly.
+
+#428 - #447 - More Custom Vanilla NPCs (Objects)
+There are the same as the above, but with objects from the NpcSym file.
+
+Custom Values available:
+01 - Move the sprite down however many pixels neccessary for the sprite in question. See "_EntitySpriteSize.txt" for more info directly. Specifically the "Objects" section.

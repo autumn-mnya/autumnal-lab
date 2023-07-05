@@ -95,7 +95,13 @@ public class EntityListRender extends DefaultListCellRenderer {
 		else if (tilesetNum == 0x2) //map tileset
 			srcImg = iMan.getImg(data.getTileset());
 		else if (tilesetNum == 0x10) //npc myChar
-			srcImg = iMan.getImg(exeData.getMyCharFile());
+			srcImg = iMan.getImg(exeData.getMyCharFile()); // Custom static npc images from Autumn next
+		else if (tilesetNum == 0x19) //npc autumn objects
+			srcImg = iMan.getImg(exeData.getAutumnObjectsFile());
+		else if (tilesetNum == 0x26) //npc autumn items
+			srcImg = iMan.getImg(exeData.getAutumnItemsFile());
+		else if (tilesetNum == 0x27) //npc autumn characters
+			srcImg = iMan.getImg(exeData.getAutumnCharactersFile());
 		else
 			return;
 		int srcW = frameRect.width - frameRect.x;

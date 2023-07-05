@@ -36,5 +36,5 @@
 35 - credits buffer 1
 36 - credits buffer 2
 37 - credits buffer 3
-38 - Unused
-39 - Unused
+38 - Autumns Items
+39 - Autumns Custom Characters

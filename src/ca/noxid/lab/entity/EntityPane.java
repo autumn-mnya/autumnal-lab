@@ -568,8 +568,9 @@ public class EntityPane extends MapPane implements ListSelectionListener, Clipbo
 		
 		private final NumberFormat lFormat = 
 				FormattedUpdateTextField.getNumberOnlyFormat(1, 4);
-		
-		
+
+		private final NumberFormat customFormat = 
+				FormattedUpdateTextField.getNumberOnlyFormat(1, 4);
 		
 		Set<PxeEntry> entityList;
 		
@@ -622,32 +623,32 @@ public class EntityPane extends MapPane implements ListSelectionListener, Clipbo
 			this.add(orderInput, c);
 			c.gridy++;
 			// Custom Value Input(s)
-			CustomValue01Input = new FormattedUpdateTextField(lFormat);
+			CustomValue01Input = new FormattedUpdateTextField(customFormat);
 			CustomValue01Input.setColumns(4);
 			CustomValue01Input.addActionListener(this);
 			this.add(CustomValue01Input, c);
 			c.gridy++;
-			CustomValue02Input = new FormattedUpdateTextField(lFormat);
+			CustomValue02Input = new FormattedUpdateTextField(customFormat);
 			CustomValue02Input.setColumns(4);
 			CustomValue02Input.addActionListener(this);
 			this.add(CustomValue02Input, c);
 			c.gridy++;
-			CustomValue03Input = new FormattedUpdateTextField(lFormat);
+			CustomValue03Input = new FormattedUpdateTextField(customFormat);
 			CustomValue03Input.setColumns(4);
 			CustomValue03Input.addActionListener(this);
 			this.add(CustomValue03Input, c);
 			c.gridy++;
-			CustomValue04Input = new FormattedUpdateTextField(lFormat);
+			CustomValue04Input = new FormattedUpdateTextField(customFormat);
 			CustomValue04Input.setColumns(4);
 			CustomValue04Input.addActionListener(this);
 			this.add(CustomValue04Input, c);
 			c.gridy++;
-			CustomValue05Input = new FormattedUpdateTextField(lFormat);
+			CustomValue05Input = new FormattedUpdateTextField(customFormat);
 			CustomValue05Input.setColumns(4);
 			CustomValue05Input.addActionListener(this);
 			this.add(CustomValue05Input, c);
 			c.gridy++;
-			CustomValue06Input = new FormattedUpdateTextField(lFormat);
+			CustomValue06Input = new FormattedUpdateTextField(customFormat);
 			CustomValue06Input.setColumns(4);
 			CustomValue06Input.addActionListener(this);
 			this.add(CustomValue06Input, c);

@@ -64,6 +64,11 @@ public class GameInfo {
 	private File armsImageFile;
 	private File faceFile;
 	private File itemImageFile;
+
+	// custom static npc image files
+	private File AutumnObjectsFile;
+	private File AutumnItemsFile;
+	private File AutumnCharactersFile;
 	
 	//getter and setter
 	public File getDataDirectory() {return dataDir;}
@@ -82,6 +87,10 @@ public class GameInfo {
 	public File getArmsImageFile() {return armsImageFile;}
 	public File getFaceFile() {return faceFile;}
 	public File getItemImageFile() {return itemImageFile;}
+	// Custom static npc image files
+	public File getAutumnObjectsFile() {return AutumnObjectsFile;}
+	public File getAutumnItemsFile() {return AutumnItemsFile;}
+	public File getAutumnCharactersFile() {return AutumnCharactersFile;}
 	
 	public enum MOD_TYPE {MOD_CS, MOD_KS, MOD_CS_PLUS, MOD_MR, MOD_GUXT, DUMMY}
 	public MOD_TYPE type;
@@ -179,6 +188,13 @@ public class GameInfo {
 		faceFile = ResourceManager.checkBase(faceFile);
 		armsImageFile = new File(dataDir + "/ArmsImage" + imageExtension); //$NON-NLS-1$
 		armsImageFile = ResourceManager.checkBase(armsImageFile);
+		// Custom static npc image files
+		AutumnObjectsFile = new File(dataDir + "/Npc/NpcAutumnObj" + imageExtension); //$NON-NLS-1$
+		AutumnObjectsFile = ResourceManager.checkBase(AutumnObjectsFile);
+		AutumnItemsFile = new File(dataDir + "/Autumn" + imageExtension); //$NON-NLS-1$
+		AutumnItemsFile = ResourceManager.checkBase(AutumnItemsFile);
+		AutumnCharactersFile = new File(dataDir + "/Npc/NpcAutumnChar" + imageExtension); //$NON-NLS-1$
+		AutumnCharactersFile = ResourceManager.checkBase(AutumnCharactersFile);
 		loadNpcTbl(ResourceManager.checkBase(new File(dataDir + "/npc.tbl"))); //$NON-NLS-1$
 	}
 	
@@ -347,6 +363,10 @@ public class GameInfo {
 		iMan.reloadImage(itemImageFile, 1);
 		iMan.reloadImage(faceFile, 1);
 		iMan.reloadImage(armsImageFile, 1);
+		// Custom static npc files
+		iMan.reloadImage(AutumnObjectsFile, 1);
+		iMan.reloadImage(AutumnItemsFile, 1);
+		iMan.reloadImage(AutumnCharactersFile, 1);
 	}
 	
 	public String[] getMapNames() {
@@ -1636,6 +1656,9 @@ public class GameInfo {
 		flist.add(new File(dataDir + "/MyChar" + imageExtension));
 		flist.add(new File(dataDir + "/Npc/NpcRegu" + imageExtension));
 		flist.add(new File(dataDir + "/Npc/NpcSym" + imageExtension));
+		// Custom files we expect here with this boosters lab copy - Autumn
+		flist.add(new File(dataDir + "/Autumn" + imageExtension));
+		flist.add(new File(dataDir + "/Npc/NpcAutumnChar" + imageExtension));
 		return flist;
 	}
 }
