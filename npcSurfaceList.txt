@@ -23,7 +23,7 @@
 22 - Map NPC Set 2
 23 - Npc/NpcRegu
 24 - unused
-25 - unused
+25 - Autumns Custom Objects
 26 - TextBox
 27 - Face
 28 - current map background

@@ -8,7 +8,7 @@ Solid (hard sides)
 Rear and top no damage
 Run event on contact
 Run event on death
-(Unused)
+Unused / Custom
 Appear once flagID set
 Spawn with alt direction
 Interactable

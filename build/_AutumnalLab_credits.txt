@@ -1,0 +1,3 @@
+Credits:
+joexyz - entity search code
+brayconn - cpxe code

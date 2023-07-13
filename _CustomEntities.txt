@@ -1,11 +1,15 @@
 Ask the Cave Story Modding Community discord if you're confused about anything here! I (@autumn_mnya) will try my best to help if asked.
 
+NEW ENTITY FEATURE: CUSTOM VALUES
+Certain entities now have 6 custom values they can use! Every new entity tells you in this file what their custom value(s) do, so there's no need to worry about what does what thing.
+
 #361 -> Booster Refill
 Refills the players Booster Fuel when touched. If Alt Direction is set, then it will set your fuel to 0.
 
 Custom Values available:
 01 - How much fuel is given when touched (Default is 50 if set to 0)
-02 - How many frames until it respawns (Default is 50 if set to 0)
+02 - How many frames until it respawns (Default is 150 if set to 0)
+03 - The position of the sprite in the spritesheet. Works like <MIM -- Setting it to 1 will move the sprite 16px down.
 
 #362 -> Lock-On Trigger
 Homes in towards the player in both X/Y directions.
@@ -37,6 +41,7 @@ Forces the player to boost hozizontally even if they dont have a booster, with n
 Custom Values available:
 01 - How much fuel the forced boost has (Default is 50 if set to 0)
 02 - How long until this forced boost respawns (Default is 50 if set to 0)
+03 - The position of the sprite in the spritesheet. Works like <MIM -- Setting it to 1 will move the sprite 16px down.
 
 #368 -> Forced Booster (Vertical)
 Forces the player to boost vertically even if they dont have a booster, with no means of stopping. By default it goes up, Alt Direction makes it go down.
@@ -44,6 +49,7 @@ Forces the player to boost vertically even if they dont have a booster, with no 
 Custom Values available:
 01 - How much fuel the forced boost has (Default is 50 if set to 0)
 02 - How long until this forced boost respawns (Default is 50 if set to 0)
+03 - The position of the sprite in the spritesheet. Works like <MIM -- Setting it to 1 will move the sprite 16px down.
 
 #369 -> Flag Trigger
 Sets the flags assigned to the custom values available. When given the "Unused / Custom" checkbox, it unsets the flag IDs instead.
@@ -114,3 +120,19 @@ There are the same as the above, but with objects from the NpcSym file.
 
 Custom Values available:
 01 - Move the sprite down however many pixels neccessary for the sprite in question. See "_EntitySpriteSize.txt" for more info directly. Specifically the "Objects" section.
+
+#448 - Jump Refill
+Gives the player an extra jump in the air
+
+Custom Values available:
+01 - How many jumps the jump arrow gives you (Default is 1 when set to 0)
+02 - How many frames until it respawns (Default is 50 if set to 0)
+03 - The position of the sprite in the spritesheet. Works like <MIM -- Setting it to 1 will move the sprite 16px down.
+
+#449 - Rewind Refill
+When touched, it does nothing. After the refills cooldown is up, however, it will move the players X/Y position back to the entities X/Y position
+
+Custom Values available:
+01 - The cooldown for the object to rewind the player back to the entities X:Y position (Default is 150 when set to 0)
+02 - The cooldown for the object to be collected again after the player is returned to the entity, or if the room is just entered (Default is 50 when set to 0)
+03 - The position of the sprite in the spritesheet. Works like <MIM -- Setting it to 1 will move the sprite 16px down.

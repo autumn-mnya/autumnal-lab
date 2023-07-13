@@ -1,4 +1,4 @@
-0 - title
+0 - Title Screen
 1 - '2004.12 Studio Pixel'
 2 - current map tileset
 3 - unused
@@ -23,7 +23,7 @@
 22 - Map NPC Set 2
 23 - Npc/NpcRegu
 24 - unused
-25 - unused
+25 - Autumns Custom Objects
 26 - TextBox
 27 - Face
 28 - current map background
@@ -36,5 +36,5 @@
 35 - credits buffer 1
 36 - credits buffer 2
 37 - credits buffer 3
-38 - unused
-39 - unused
+38 - Autumns Items
+39 - Autumns Custom Characters
