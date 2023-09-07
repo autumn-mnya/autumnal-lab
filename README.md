@@ -53,4 +53,5 @@ http://www.apache.org/licenses/LICENSE-2.0
 
 # Autumn's Build (credits)
 
+brayconn - help with .cpxe code
 joexyz - Entity Search feature
