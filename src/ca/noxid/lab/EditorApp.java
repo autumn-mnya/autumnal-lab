@@ -44,16 +44,17 @@ public class EditorApp extends JFrame implements ActionListener {
 	public static boolean blazed = false;
 
 	// about dialog
-	private static final String VER_NUM = " v0.5.2.0"; //$NON-NLS-1$
+	private static final String VER_NUM = " v1.0.0.4"; //$NON-NLS-1$
 	private static final String TITLE_STR = "Autumnal Lab" + VER_NUM;
 	private static final String ABOUT_STR = Messages.getString("EditorApp.1") + VER_NUM + "\n" + //$NON-NLS-1$ //$NON-NLS-2$
-			"By Autumn Hazel - 7/3/2023\n" + //$NON-NLS-1$
+			"By Autumn Hazel - 9/22/2023\n" + //$NON-NLS-1$
 			Messages.getString("EditorApp.4") + //$NON-NLS-1$
 			Messages.getString("EditorApp.5") + //$NON-NLS-1$
 			Messages.getString("EditorApp.6"); 
 
 	public static int EDITOR_MODE = 0;
 	public static int EDITOR_BITMAP_MODE = 0;
+	public static int EDITOR_SCRIPT_ENCRYPTION_MODE = 0;
 	/*
 	 * 0 = regular CS
 	 * 1 = CS w/ layers
@@ -2757,6 +2758,17 @@ public class EditorApp extends JFrame implements ActionListener {
 				try
 				{
 					EDITOR_BITMAP_MODE = Integer.parseInt(val);
+				} catch (NumberFormatException ignored)
+				{
+
+				}
+			}
+			else if (s.startsWith("TSCUNENCRYPTED="))
+			{
+				String val = s.split("=", 2)[1];
+				try
+				{
+					EDITOR_SCRIPT_ENCRYPTION_MODE = Integer.parseInt(val);
 				} catch (NumberFormatException ignored)
 				{
 

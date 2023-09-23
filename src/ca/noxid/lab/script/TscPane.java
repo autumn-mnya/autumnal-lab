@@ -342,6 +342,7 @@ public class TscPane extends JTextPane implements ActionListener, Changeable {
 		put('F', "Flag");
 		put('g', "Graphic");
 		put('l', "Illustration");
+		put('L', "Layer");
 		put('i', "Item");
 		put('m', "Map");
 		put('u', "Music");
@@ -349,6 +350,7 @@ public class TscPane extends JTextPane implements ActionListener, Changeable {
 		put('n', "NPC Type");
 		put('s', "Sound");
 		put('t', "Tile");
+		put('v', "Variable");
 		put('x', "X Coord");
 		put('y', "Y Coord");
 		put('#', "Number");
@@ -374,7 +376,9 @@ public class TscPane extends JTextPane implements ActionListener, Changeable {
 		case 'd': //direction
 		case 'F': //flag
 		case 'l': //illustration #
+		case 'L': //Layer
 		case 'N': //NPC num
+		case 'v': //variable
 		case 'x': //x coordinate
 		case 'y': //y coordinate
 		case '#': //number
@@ -888,7 +892,7 @@ public class TscPane extends JTextPane implements ActionListener, Changeable {
 		if (fileSize > 0) {
 			int cypher = dataBuf.get(fileSize / 2);
 			datArray = dataBuf.array();
-			if (scriptFile.getName().endsWith(".tsc")) { //$NON-NLS-1$
+			if (EditorApp.EDITOR_SCRIPT_ENCRYPTION_MODE == 0 && scriptFile.getName().endsWith(".tsc")) { //$NON-NLS-1$
 				for (int i = 0; i < fileSize; i++) {
 					if (i != fileSize / 2) {
 						datArray[i] -= cypher;
@@ -964,7 +968,7 @@ public class TscPane extends JTextPane implements ActionListener, Changeable {
 			int fileSize = stripArr.length;
 			if (fileSize > 0) {
 				int cypher = stripArr[fileSize / 2];
-				if (scriptFile.getName().endsWith(".tsc")) { //$NON-NLS-1$
+				if (EditorApp.EDITOR_SCRIPT_ENCRYPTION_MODE == 0 && scriptFile.getName().endsWith(".tsc")) { //$NON-NLS-1$
 					for (int i = 0; i < fileSize; i++) {
 						if (i != fileSize / 2) {
 							stripArr[i] += cypher;
@@ -1024,7 +1028,7 @@ public class TscPane extends JTextPane implements ActionListener, Changeable {
 			int fileSize = stripArr.length;
 			if (fileSize > 0) {
 				int cypher = stripArr[fileSize / 2];
-				if (dest.getName().endsWith(".tsc")) { //$NON-NLS-1$
+				if (EditorApp.EDITOR_SCRIPT_ENCRYPTION_MODE == 0 && dest.getName().endsWith(".tsc")) { //$NON-NLS-1$
 					for (int i = 0; i < fileSize; i++) {
 						if (i != fileSize / 2) {
 							stripArr[i] += cypher;
